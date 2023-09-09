@@ -11,7 +11,7 @@ app = Flask(__name__)
 # Adjust the allowed origins accordingly
 CORS(
     app,
-    origins=['https://takomall-backend.onrender.com'],  # Production origin
+    origins=['https://takomall-backend.onrender.com'], 
     supports_credentials=True,
     allow_headers=['Authorization']
 )
@@ -23,6 +23,9 @@ def home():
 @app.route('/signup', methods=['POST'])
 async def signup_route():
     try:
+        if request.headers['Content-Type'] != 'application/json':
+            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
+        
         data = request.get_json()
         if not data:
             return jsonify({'error': 'Invalid JSON data in the request'}), 400
@@ -35,6 +38,9 @@ async def signup_route():
 @app.route('/login', methods=['POST'])
 async def login_route():
     try:
+        if request.headers['Content-Type'] != 'application/json':
+            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
+        
         data = request.get_json()
         if not data:
             return jsonify({'error': 'Invalid JSON data in the request'}), 400
@@ -47,6 +53,9 @@ async def login_route():
 @app.route('/reset_password', methods=['POST'])
 async def reset_route():
     try:
+        if request.headers['Content-Type'] != 'application/json':
+            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
+        
         data = request.get_json()
         if not data:
             return jsonify({'error': 'Invalid JSON data in the request'}), 400
@@ -59,6 +68,9 @@ async def reset_route():
 @app.route('/reset_password/<reset_token>', methods=['POST'])
 async def reset_route_link(reset_token):
     try:
+        if request.headers['Content-Type'] != 'application/json':
+            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
+        
         data = request.get_json()
         if not data:
             return jsonify({'error': 'Invalid JSON data in the request'}), 400
