@@ -7,9 +7,11 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
+# Define CORS settings for production and development environments
+# Adjust the allowed origins accordingly
 CORS(
     app,
-    origins=['http://127.0.0.1:5000', 'https://takomall-backend.onrender.com'],
+    origins=['https://takomall-backend.onrender.com'],  # Production origin
     supports_credentials=True,
     allow_headers=['Authorization']
 )
@@ -67,4 +69,5 @@ async def reset_route_link(reset_token):
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8000)
+
