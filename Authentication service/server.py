@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from src.resolvers.sign_up.sign_up import signup
 from src.resolvers.login.login import login
-import asyncio
 from src.resolvers.reset_password.reset_password import reset_password_request
 from src.resolvers.reset_password.reset_link import reset_link
 app = Flask(__name__)
