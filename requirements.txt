@@ -8,3 +8,5 @@ flask_wtf
 asynctest
 flask-cors
 bcrypt
+gunicorn
+

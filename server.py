@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from src.resolvers.sign_up.sign_up import signup
 from src.resolvers.login.login import login
 from src.resolvers.reset_password.reset_password import reset_password_request
@@ -37,4 +37,4 @@ async def reset_route_link(reset_token):
     return response, status_code 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)  
+    app.run(debug=False)  

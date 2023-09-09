@@ -17,6 +17,7 @@ flask-cors = "*"
 flask-sqlalchemy = "*"
 bcrypt = "*"
 flask = {extras = ["async"], version = "*"}
+gunicorn = "*"
 
 [dev-packages]
 
