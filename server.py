@@ -37,18 +37,18 @@ async def signup_route():
 
 @app.route('/login', methods=['POST'])
 async def login_route():
-    try:
-        if request.headers['Content-Type'] != 'application/json':
-            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
-        
-        data = request.get_json()
-        if not data:
-            return jsonify({'error': 'Invalid JSON data in the request'}), 400
-        
-        response, status_code = await login(data)
-        return response, status_code
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    # try:
+    if request.headers['Content-Type'] != 'application/json':
+        return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
+    
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'Invalid JSON data in the request'}), 400
+    
+    response, status_code = await login(data)
+    return response, status_code
+    # except Exception as e:
+    #     return jsonify({'error': str(e)}), 500
 
 @app.route('/reset_password', methods=['POST'])
 async def reset_route():
