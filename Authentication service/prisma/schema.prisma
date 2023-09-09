@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id                        Int                  @id @default(autoincrement()) 
+  full_name                 String
+  email                     String
+  password                  String   
+  created_at                DateTime? 
+  assess_level_id           Int?
+  reset_token               String?
+  reset_token_expiration    DateTime? 
+  Access_level              Access_level?         @relation(fields: [assess_level_id], references: [id])
+  deleted                   Boolean               @default(false)
+}
+
+model Access_level {
+  id                        Int                   @id @default(autoincrement()) 
+  role                      String
+  permissions               Json
+  deleted                   Boolean               @default(false)
+  User                      User[]
+}
