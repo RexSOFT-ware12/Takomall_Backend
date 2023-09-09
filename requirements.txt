@@ -4,11 +4,7 @@ prisma~=0.9.1
 python-dateutil~=2.8.2
 requests
 pyjwt
-python-dotenv~=1.0.0
 flask_wtf
 asynctest
-psycopg2
 flask-cors
-Flask-PyMongo
-flask_sqlalchemy
 bcrypt
