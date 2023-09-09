@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def home():
-    print('Hello')
+    return 'Hello'
     
 @app.route('/signup', methods=['POST'])
 async def signup_route():

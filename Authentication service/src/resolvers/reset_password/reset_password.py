@@ -7,7 +7,6 @@ from email_service.send_mail import send_reset_password_email
 
 prisma = Prisma()
 
-first_name = ''
 async def reset_password_request(data):
     email = data.get('email')
     global first_name
