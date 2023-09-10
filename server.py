@@ -43,9 +43,9 @@ async def signup_route():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/login', methods=['POST'])
-def login_route():
+async def login_route():
     try:
-        prisma.connect()
+        await prisma.connect()
         if request.headers.get('Content-Type') != 'application/json':
             return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
         
@@ -59,14 +59,14 @@ def login_route():
         email = data.get('email')
         password = data.get('password')
 
-        user = prisma.user.find_first(where={'email': email})
+        user = await prisma.user.find_first(where={'email': email})
         print("User:", user)
-        if user and verify_password(password, user.password):
+        if user and await verify_password(password, user.password):
             return jsonify({'message': 'Login successful', 'user_id': user.id}), 200
         else:
             return jsonify({'message': 'Invalid credentials'}), 401
     finally:
-        prisma.disconnect()
+        await prisma.disconnect()
 
 
 
