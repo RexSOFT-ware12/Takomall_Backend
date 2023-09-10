@@ -20,7 +20,7 @@ Provide step-by-step instructions on how to install and set up your application.
 bash
 Copy code
 # Example: Installation
-$ git clone https://github.com/yourusername/your-project.git
+$ git clone https://github.com/RexSOFT-ware12/Takomall_Backend.git
 $ cd your-project
 $ python setup.py install
 Usage
