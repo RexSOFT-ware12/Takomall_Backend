@@ -3,109 +3,45 @@ from src.resolvers.sign_up.sign_up import signup
 from src.resolvers.login.login import login
 from src.resolvers.reset_password.reset_password import reset_password_request
 from src.resolvers.reset_password.reset_link import reset_link
-from Helpers.prisma_connection   import connect_to_prisma
-from prisma import Prisma
-from Helpers.verify_password import verify_password
-from flask_cors import CORS
-
 app = Flask(__name__)
 
-prisma = Prisma()
-CORS(
-    app,
-    origins=['https://takomall-backend.onrender.com'], 
-    supports_credentials=True,
-    allow_headers=['Authorization']
-)
 
 @app.route('/', methods=['POST'])
 def home():
     return 'Hello'
-
+    
 @app.route('/signup', methods=['POST'])
 async def signup_route():
-    try:
-        if request.headers.get('Content-Type') != 'application/json':
-            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
-        
-        data = request.get_json()
-        if not data:
-            return jsonify({'error': 'Invalid JSON data in the request'}), 400
-
-        # Debugging: Print the received data
-        print("Received data:", data)
-        
-        response, status_code = await signup(data)
-        return response, status_code
-    except Exception as e:
-        # Debugging: Print the exception
-        print("Error:", str(e))
-        return jsonify({'error': str(e)}), 500
+    data = request.get_json()
+    response, status_code = await signup(data)
+    # Convert the response to a string
+    response_str = str(response)
+    
+    # Ensure that status_code is an integer
+    if not isinstance(status_code, int):
+        status_code = 200  # Set a default status code if it's not an integer
+    
+    return response_str, status_code  
 
 @app.route('/login', methods=['POST'])
 async def login_route():
-    if request.headers.get('Content-Type') != 'application/json':
-        return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
-    
     data = request.get_json()
-    if not data:
-        return jsonify({'error': 'Invalid JSON data in the request'}), 400
-
-    # Debugging: Print the received data
-    print("Received data:", data)
-    
-    email = data.get('email')
-    password = data.get('password')
-    if await connect_to_prisma(prisma):
-        user = await prisma.user.find_first(where={'email': email})
-        print("User:", user)
-        if user and await verify_password(password, user.password):
-            return jsonify({'message': 'Login successful', 'user_id': user.id}), 200
-        else:
-            return jsonify({'message': 'Invalid credentials'}), 401
-
-
+    response, status_code = await login(data)
+    return response, status_code  
 
 
 @app.route('/reset_password', methods=['POST'])
 async def reset_route():
-    try:
-        if request.headers.get('Content-Type') != 'application/json':
-            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
-        
-        data = request.get_json()
-        if not data:
-            return jsonify({'error': 'Invalid JSON data in the request'}), 400
+    data = request.get_json()
+    response, status_code = await reset_password_request(data)
+    return response, status_code 
 
-        # Debugging: Print the received data
-        print("Received data:", data)
-
-        response, status_code = await reset_password_request(data)
-        return response, status_code
-    except Exception as e:
-        # Debugging: Print the exception
-        print("Error:", str(e))
-        return jsonify({'error': str(e)}), 500
 
 @app.route('/reset_password/<reset_token>', methods=['POST'])
 async def reset_route_link(reset_token):
-    try:
-        if request.headers.get('Content-Type') != 'application/json':
-            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
-        
-        data = request.get_json()
-        if not data:
-            return jsonify({'error': 'Invalid JSON data in the request'}), 400
-
-        # Debugging: Print the received data
-        print("Received data:", data)
-
-        response, status_code = await reset_link(data, reset_token)
-        return response, status_code
-    except Exception as e:
-        # Debugging: Print the exception
-        print("Error:", str(e))
-        return jsonify({'error': str(e)}), 500
+    data = request.get_json()
+    response, status_code = await reset_link(data, reset_token)
+    return response, status_code 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
