@@ -4,24 +4,12 @@ from src.resolvers.login.login import login
 from src.resolvers.reset_password.reset_password import reset_password_request
 from src.resolvers.reset_password.reset_link import reset_link
 app = Flask(__name__)
-
-
-@app.route('/', methods=['POST'])
-def home():
-    return 200
     
 @app.route('/signup', methods=['POST'])
 async def signup_route():
     data = request.get_json()
     response, status_code = await signup(data)
-    # Convert the response to a string
-    response_str = str(response)
-    
-    # Ensure that status_code is an integer
-    if not isinstance(status_code, int):
-        status_code = 200  # Set a default status code if it's not an integer
-    
-    return response_str, status_code  
+    return response, status_code  
 
 @app.route('/login', methods=['POST'])
 async def login_route():
