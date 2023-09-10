@@ -9,4 +9,6 @@ asynctest
 flask-cors
 bcrypt
 gunicorn
+flask-restful
+aiohttp
 

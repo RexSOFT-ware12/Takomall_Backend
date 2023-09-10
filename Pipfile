@@ -18,6 +18,8 @@ flask-sqlalchemy = "*"
 bcrypt = "*"
 flask = {extras = ["async"], version = "*"}
 gunicorn = "*"
+flask-restful = "*"
+aiohttp = "*"
 
 [dev-packages]
 
