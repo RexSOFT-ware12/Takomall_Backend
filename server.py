@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def home():
-    return 'Hello'
+    return 200
     
 @app.route('/signup', methods=['POST'])
 async def signup_route():
