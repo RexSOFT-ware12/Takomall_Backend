@@ -43,29 +43,31 @@ async def signup_route():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/login', methods=['POST'])
-async def login_route():
-    if request.headers.get('Content-Type') != 'application/json':
-        return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
-    
-    data = request.get_json()
-    if not data:
-        return jsonify({'error': 'Invalid JSON data in the request'}), 400
+def login_route():
+    try:
+        prisma.connect()
+        if request.headers.get('Content-Type') != 'application/json':
+            return jsonify({'error': 'Invalid Content-Type, must be application/json'}), 400
+        
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Invalid JSON data in the request'}), 400
 
-    # Debugging: Print the received data
-    print("Received data:", data)
-    if await connect_to_prisma(prisma):
+        # Debugging: Print the received data
+        print("Received data:", data)
+        
         email = data.get('email')
         password = data.get('password')
 
-        user = await prisma.user.find_first(where={'email': email})
+        user = prisma.user.find_first(where={'email': email})
         print("User:", user)
-        if user and await verify_password(password, user.password):
+        if user and verify_password(password, user.password):
             return jsonify({'message': 'Login successful', 'user_id': user.id}), 200
         else:
             return jsonify({'message': 'Invalid credentials'}), 401
+    finally:
+        prisma.disconnect()
 
-    # Return a generic error response if an unexpected error occurs
-    return jsonify({'error': 'An unexpected error occurred'}), 500
 
 
 
