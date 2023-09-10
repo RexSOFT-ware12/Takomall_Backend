@@ -9,7 +9,6 @@ prisma = Prisma()
 
 async def reset_password_request(data):
     email = data.get('email')
-    global first_name
     if await connect_to_prisma(prisma):
         user = await prisma.user.find_first(where={'email': str(email)})
         if user:
