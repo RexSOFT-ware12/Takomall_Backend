@@ -28,39 +28,27 @@ async def async_reset_link(data, reset_token):
 class SignupResource(Resource):
     def post(self):
         data = request.get_json()
-        response, status_code = asyncio.run(async_signup(data))
-        if status_code == 200:
-            return {"message": "SignUp successful"}
-        else:
-            return {"error": "Invalid credentials"}
+        response = asyncio.run(async_signup(data))
+        return response
 
 class LoginResource(Resource):
     def post(self):
         data = request.get_json()
-        response, status_code = asyncio.run(async_login(data))
-        if status_code == 200 or status_code == 201:
-            return {"message":"Login successful"}
-        else:
-            return {"error": "Invalid credentials"}
+        response = asyncio.run(async_login(data))
+        return response
             
 
 class ResetPasswordResource(Resource):
     def post(self):
         data = request.get_json()
-        response, status_code = asyncio.run(async_reset_password_request(data))
-        if status_code == 200:
-            return {"message": "Reset link sent"}
-        else:
-            return {"error": "Invalid credential"}
+        response = asyncio.run(async_reset_password_request(data))
+        return response
 
 class ResetLinkResource(Resource):
     def post(self, reset_token):
         data = request.get_json()
-        response, status_code = asyncio.run(async_reset_link(data, reset_token))
-        if status_code == 200:
-            return {"message": "Password changed successful"}
-        else:
-            return {"error": "Invalid credentials"}
+        response = asyncio.run(async_reset_link(data, reset_token))
+        return response
 
 # Add resources to the API with their respective routes
 api.add_resource(SignupResource, '/signup')

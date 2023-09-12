@@ -18,7 +18,7 @@ async def signup(data):
         hashed_password = await hash_password(password)
 
         if await prisma.user.find_first(where={'email': email}):
-            return jsonify({'message': 'Email is already registered'}), 400
+            return {'message': 'Email is already registered'}
 
         new_user = await prisma.user.create(
             {'full_name': full_name, 
@@ -27,4 +27,4 @@ async def signup(data):
              }
             )
 
-        return jsonify({'message': 'User created successfully', 'user_id': new_user.id}), 201
+        return {'message': 'User created successfully', 'user_id': new_user.id}

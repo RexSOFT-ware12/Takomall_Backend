@@ -15,6 +15,6 @@ async def login(data):
         user = await prisma.user.find_first(where={'email': email})
         print("User:", user)
         if user and await verify_password(password, user.password):
-            return {'message': 'Login successful', 'user_id': user.id}, 200
+            return {'message': 'Login successful', 'user_id': user.id}
         else:
-            return {'message': 'Invalid credentials'}, 401
+            return {'message': 'Invalid credentials'}

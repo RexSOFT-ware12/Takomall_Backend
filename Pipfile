@@ -20,6 +20,7 @@ flask = {extras = ["async"], version = "*"}
 gunicorn = "*"
 flask-restful = "*"
 aiohttp = "*"
+uvicorn = "*"
 
 [dev-packages]
 

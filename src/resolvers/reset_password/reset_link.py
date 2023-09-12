@@ -21,6 +21,6 @@ async def reset_link(data , reset_token):
                     'password': hashed_password
                 }
             )
-            return jsonify({'message': 'Password reset successfully'}), 200
+            return {'message': 'Password reset successfully'}
         else:
-            return jsonify({'message': 'Invalid or expired reset token'}), 400
+            return {'message': 'Invalid or expired reset token'}

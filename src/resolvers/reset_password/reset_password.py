@@ -21,6 +21,6 @@ async def reset_password_request(data):
                 }
             )
             send_reset_password_email(email, user.full_name)
-            return jsonify({'message': 'Password reset link sent to your email'}), 200
+            return {'message': 'Password reset link sent to your email'}
         else:
-            return jsonify({'message': 'Email not found'}), 404
+            return {'message': 'Email not found'}
