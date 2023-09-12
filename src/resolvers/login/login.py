@@ -13,7 +13,6 @@ async def login(data):
         password = data.get('password')
 
         user = await prisma.user.find_first(where={'email': email})
-        print("User:", user)
         if user and await verify_password(password, user.password):
             return {'message': 'Login successful', 'user_id': user.id}
         else:

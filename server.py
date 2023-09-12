@@ -57,4 +57,5 @@ api.add_resource(ResetPasswordResource, '/reset_password')
 api.add_resource(ResetLinkResource, '/reset_password/<reset_token>')
 
 if __name__ == '__main__':
+    app.debug = True
     app.run(host='0.0.0.0', port=8000)
