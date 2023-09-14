@@ -25,30 +25,30 @@ async def async_reset_link(data, reset_token):
     with app.app_context():
         return await reset_link(data, reset_token)
 
+# async def business_account(data, reset_token):
+#     with app.app_context():
+#         return await create_business_account(data, reset_token)
+
 class SignupResource(Resource):
     def post(self):
         data = request.get_json()
-        response = asyncio.run(async_signup(data))
-        return jsonify(response)
+        return jsonify(asyncio.run(async_signup(data)))
 
 class LoginResource(Resource):
     def post(self):
         data = request.get_json()
-        response = asyncio.run(async_login(data))
-        return jsonify(response)
+        return jsonify(asyncio.run(async_login(data)))
             
 
 class ResetPasswordResource(Resource):
     def post(self):
         data = request.get_json()
-        response = asyncio.run(async_reset_password_request(data))
-        return jsonify(response)
+        return jsonify(asyncio.run(async_reset_password_request(data)))
 
 class ResetLinkResource(Resource):
     def post(self, reset_token):
         data = request.get_json()
-        response = asyncio.run(async_reset_link(data, reset_token))
-        return jsonify(response)
+        return jsonify(asyncio.run(async_reset_link(data, reset_token)))
 
 # Add resources to the API with their respective routes
 api.add_resource(SignupResource, '/signup')
