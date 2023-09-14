@@ -29,26 +29,26 @@ class SignupResource(Resource):
     def post(self):
         data = request.get_json()
         response = asyncio.run(async_signup(data))
-        return response
+        return jsonify(response)
 
 class LoginResource(Resource):
     def post(self):
         data = request.get_json()
         response = asyncio.run(async_login(data))
-        return response
+        return jsonify(response)
             
 
 class ResetPasswordResource(Resource):
     def post(self):
         data = request.get_json()
         response = asyncio.run(async_reset_password_request(data))
-        return response
+        return jsonify(response)
 
 class ResetLinkResource(Resource):
     def post(self, reset_token):
         data = request.get_json()
         response = asyncio.run(async_reset_link(data, reset_token))
-        return response
+        return jsonify(response)
 
 # Add resources to the API with their respective routes
 api.add_resource(SignupResource, '/signup')

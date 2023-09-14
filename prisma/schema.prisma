@@ -31,3 +31,53 @@ model Access_level {
   deleted                   Boolean               @default(false)
   User                      User[]
 }
+
+model business {
+  id                         Int                   @id @default(autoincrement()) 
+  business_name              String
+  business_description       String
+  work_email                 String
+  certificate                String
+  identity_card              String
+  products                   products[]
+  store                      store[]
+}
+
+model store {
+  id                         Int                   @id @default(autoincrement()) 
+  store_name                 String
+  store_description          String
+  store_headlines            String
+  store_logo                 String
+  store_contact_us_image     String
+  store_cover_image          String
+  business_id                Int
+  business                   business?   @relation(fields: [business_id], references: [id])
+  products                   products[]
+}
+
+model category {
+  id                         Int                   @id @default(autoincrement()) 
+  category_name              String
+}
+
+model products {
+  id                        Int                   @id @default(autoincrement()) 
+  business_id               Int
+  store_id                  Int
+  product_name              String
+  product_description       String
+  product_category          String
+  product_price             Float
+  product_size              Float
+  product_status            Boolean
+  product_color             String
+  product_images            String[]
+  updated_at                DateTime?
+  created_at                DateTime?
+  created_by                Int?
+  deleted                   Boolean          @default(false)
+  updated_by                Int?
+  store                     store       @relation(fields: [store_id], references: [id])
+  business                  business?   @relation(fields: [business_id], references: [id])
+}
