@@ -1,14 +1,3 @@
 pipenv
-flask[async]
-prisma~=0.9.1
-python-dateutil~=2.8.2
-requests
-pyjwt
-flask_wtf
-asynctest
-flask-cors
-bcrypt
-gunicorn
-flask-restful
-aiohttp
-
+flask
+Flask-SQLAlchemy
